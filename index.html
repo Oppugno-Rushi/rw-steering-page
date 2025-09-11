@@ -63,6 +63,34 @@
       background: rgba(255,255,255,.7); border:1px solid var(--border); padding:6px 10px; border-radius:999px; }
     .title { font-size: clamp(30px, 5vw, 52px); line-height:1.06; margin:14px 0 10px; font-weight:800;
       color:#0f172a; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+    .title-line-1 { 
+      display: block; 
+      font-size: clamp(24px, 4vw, 40px); 
+      color: #64748b; 
+      font-weight: 600; 
+      margin-bottom: 8px; 
+    }
+    .title-line-2 { 
+      display: block; 
+      position: relative; 
+    }
+    .rw-text { 
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #22d3ee, #fb7185); 
+      -webkit-background-clip: text; 
+      background-clip: text; 
+      color: transparent; 
+      font-size: clamp(32px, 5.5vw, 56px); 
+      font-weight: 900; 
+      text-shadow: 0 0 30px rgba(124,58,237,0.3); 
+      display: inline-block; 
+      margin-right: 12px; 
+    }
+    .under-text { 
+      color: #0f172a; 
+      font-size: clamp(28px, 4.5vw, 48px); 
+      font-weight: 700; 
+      display: inline-block; 
+    }
     .gradient { background: linear-gradient(90deg, var(--accent2), var(--accent1)); -webkit-background-clip:text; background-clip:text; color:transparent }
     .subtitle { color: var(--muted); font-size:clamp(14px, 2.4vw, 18px) }
     .author-grid { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 18px }
@@ -301,32 +329,81 @@
     .finding-bubble { 
       background: linear-gradient(135deg, #1e293b, #334155); 
       border: 1px solid rgba(255,255,255,0.1); 
-      border-radius: 20px; 
-      padding: 24px; 
-      margin-bottom: 20px; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+      border-radius: 24px; 
+      padding: 28px; 
+      margin-bottom: 24px; 
+      box-shadow: 0 12px 35px rgba(0,0,0,0.3); 
       display: flex; 
       align-items: flex-start; 
-      gap: 20px; 
-      transition: transform 0.3s ease, box-shadow 0.3s ease; 
+      gap: 24px; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .finding-bubble::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); 
+      opacity: 0; 
+      transition: opacity 0.3s ease; 
+      pointer-events: none; 
     }
     .finding-bubble:hover { 
-      transform: translateY(-5px); 
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+      transform: translateY(-8px) scale(1.02); 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
     }
+    .finding-bubble:hover::before { 
+      opacity: 1; 
+    }
+    
+    /* Different colored finding numbers */
     .finding-number { 
-      background: linear-gradient(135deg, #7c3aed, #a855f7); 
       color: #ffffff; 
-      font-size: 18px; 
-      font-weight: 800; 
-      width: 40px; 
-      height: 40px; 
+      font-size: 20px; 
+      font-weight: 900; 
+      width: 50px; 
+      height: 50px; 
       border-radius: 50%; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       flex-shrink: 0; 
-      box-shadow: 0 4px 15px rgba(124,58,237,0.3); 
+      position: relative; 
+      z-index: 2; 
+    }
+    .finding-number-1 { 
+      background: linear-gradient(135deg, #ef4444, #f97316); 
+      box-shadow: 0 6px 20px rgba(239,68,68,0.4), 0 0 0 4px rgba(239,68,68,0.1); 
+    }
+    .finding-number-2 { 
+      background: linear-gradient(135deg, #3b82f6, #06b6d4); 
+      box-shadow: 0 6px 20px rgba(59,130,246,0.4), 0 0 0 4px rgba(59,130,246,0.1); 
+    }
+    .finding-number-3 { 
+      background: linear-gradient(135deg, #10b981, #059669); 
+      box-shadow: 0 6px 20px rgba(16,185,129,0.4), 0 0 0 4px rgba(16,185,129,0.1); 
+    }
+    .finding-number-4 { 
+      background: linear-gradient(135deg, #8b5cf6, #a855f7); 
+      box-shadow: 0 6px 20px rgba(139,92,246,0.4), 0 0 0 4px rgba(139,92,246,0.1); 
+    }
+    
+    /* Special effects for each finding */
+    .finding-1 { 
+      border-left: 4px solid #ef4444; 
+    }
+    .finding-2 { 
+      border-left: 4px solid #3b82f6; 
+    }
+    .finding-3 { 
+      border-left: 4px solid #10b981; 
+    }
+    .finding-4 { 
+      border-left: 4px solid #8b5cf6; 
     }
     .finding-content { 
       flex: 1; 
@@ -388,7 +465,13 @@
     <!-- HERO -->
     <section class="hero">
       <span class="eyebrow">Project Page • Dreamy pastel theme</span>
-      <h1 class="title">Context Engineering for Trustworthiness:<br><span class="gradient">Rescorla–Wagner Steering</span> Under Mixed and Inappropriate Contexts</h1>
+      <h1 class="title">
+        <span class="title-line-1">Context Engineering for Trustworthiness:</span><br>
+        <span class="title-line-2">
+          <span class="rw-text">Rescorla–Wagner Steering</span>
+          <span class="under-text">Under Mixed and Inappropriate Contexts</span>
+        </span>
+      </h1>
       <p class="subtitle">A simple, generalizable approach to make LLMs internally identify and ignore inappropriate signals in mixed contexts.</p>
 
       <div class="author-grid" aria-label="authors">
@@ -717,8 +800,8 @@
       <h2 class="h2">Findings</h2>
       
       <!-- Finding 1 -->
-      <div class="finding-bubble">
-        <div class="finding-number">01</div>
+      <div class="finding-bubble finding-1">
+        <div class="finding-number finding-number-1">01</div>
         <div class="finding-content">
           <h3>Small amounts of inappropriate context can disproportionately steer LLM behavior</h3>
           <p>Evidence from the testbed shows that early or salient inappropriate signals induce large behavior shifts ("RW behavior"), even when they represent a minority of the context.</p>
@@ -730,8 +813,8 @@
       </div>
 
       <!-- Finding 2 -->
-      <div class="finding-bubble">
-        <div class="finding-number">02</div>
+      <div class="finding-bubble finding-2">
+        <div class="finding-number finding-number-2">02</div>
         <div class="finding-content">
           <h3>RW model explains and predicts the shape of behavior curves</h3>
           <p>The adapted Rescorla–Wagner model closely predicts performance degradation patterns under mixed contexts, aligning with empirical curves across contamination levels.</p>
@@ -743,8 +826,8 @@
       </div>
 
       <!-- Finding 3 -->
-      <div class="finding-bubble">
-        <div class="finding-number">03</div>
+      <div class="finding-bubble finding-3">
+        <div class="finding-number finding-number-3">03</div>
         <div class="finding-content">
           <h3>Alignment-only and filtering baselines fail to generalize across mixture ratios</h3>
           <p>Self-/human-aligned responses and rule-based filtering offer limited stability and may collapse as mixture ratios change.</p>
@@ -756,8 +839,8 @@
       </div>
 
       <!-- Finding 4 -->
-      <div class="finding-bubble">
-        <div class="finding-number">04</div>
+      <div class="finding-bubble finding-4">
+        <div class="finding-number finding-number-4">04</div>
         <div class="finding-content">
           <h3>RW‑Steering reverses the undesired curve and improves overall quality</h3>
           <p>With a joint judgment + answer objective and extra training on few inappropriate segments, RW‑Steering generalizes robustly and improves average response quality.</p>
