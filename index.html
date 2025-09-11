@@ -230,6 +230,145 @@
         order: -1; 
       }
     }
+    
+    /* Table Cards */
+    .table-card { 
+      background: linear-gradient(135deg, #1e293b, #334155); 
+      border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 16px; 
+      padding: 24px; 
+      margin-bottom: 20px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    }
+    .table-header { 
+      margin-bottom: 20px; 
+    }
+    .table-header h3 { 
+      color: #ffffff; 
+      font-size: 20px; 
+      font-weight: 800; 
+      margin: 0 0 8px 0; 
+    }
+    .table-header p { 
+      color: #cbd5e1; 
+      font-size: 14px; 
+      margin: 0; 
+    }
+    .table-container { 
+      overflow-x: auto; 
+      border-radius: 12px; 
+      background: rgba(255,255,255,0.05); 
+    }
+    .data-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      font-size: 13px; 
+      min-width: 800px; 
+    }
+    .data-table th { 
+      background: rgba(255,255,255,0.1); 
+      color: #ffffff; 
+      font-weight: 700; 
+      padding: 12px 8px; 
+      text-align: center; 
+      border-bottom: 2px solid rgba(255,255,255,0.2); 
+      font-size: 12px; 
+    }
+    .data-table th:first-child { 
+      text-align: left; 
+    }
+    .data-table td { 
+      color: #e2e8f0; 
+      padding: 10px 8px; 
+      text-align: center; 
+      border-bottom: 1px solid rgba(255,255,255,0.1); 
+      font-size: 12px; 
+    }
+    .data-table td:first-child { 
+      text-align: left; 
+      font-weight: 600; 
+    }
+    .data-table tbody tr:hover { 
+      background: rgba(255,255,255,0.05); 
+    }
+    .highlight-cell { 
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(34,211,238,0.2)); 
+      color: #60a5fa; 
+      font-weight: 700; 
+    }
+    
+    /* Finding Bubbles */
+    .finding-bubble { 
+      background: linear-gradient(135deg, #1e293b, #334155); 
+      border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 20px; 
+      padding: 24px; 
+      margin-bottom: 20px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 20px; 
+      transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    }
+    .finding-bubble:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+    }
+    .finding-number { 
+      background: linear-gradient(135deg, #7c3aed, #a855f7); 
+      color: #ffffff; 
+      font-size: 18px; 
+      font-weight: 800; 
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      flex-shrink: 0; 
+      box-shadow: 0 4px 15px rgba(124,58,237,0.3); 
+    }
+    .finding-content { 
+      flex: 1; 
+    }
+    .finding-content h3 { 
+      color: #ffffff; 
+      font-size: 18px; 
+      font-weight: 700; 
+      margin: 0 0 12px 0; 
+      line-height: 1.4; 
+    }
+    .finding-content p { 
+      color: #e2e8f0; 
+      line-height: 1.6; 
+      margin: 0 0 16px 0; 
+      font-size: 15px; 
+    }
+    .finding-tags { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+    }
+    .finding-tag { 
+      background: rgba(255,255,255,0.1); 
+      color: #cbd5e1; 
+      padding: 6px 12px; 
+      border-radius: 20px; 
+      font-size: 12px; 
+      font-weight: 500; 
+      border: 1px solid rgba(255,255,255,0.2); 
+    }
+    
+    @media (max-width: 768px) {
+      .finding-bubble { 
+        flex-direction: column; 
+        gap: 16px; 
+        text-align: center; 
+      }
+      .finding-number { 
+        align-self: center; 
+      }
+    }
   </style>
 </head>
 <body>
@@ -396,163 +535,176 @@
     <!-- TABLES -->
     <section class="section" id="tables">
       <h2 class="h2">Tables</h2>
-      <div class="card" style="padding:0">
-        <div style="padding:16px 16px 0 16px; color:#475569">Table 1 — Results on models exposed to proportionate fakenews context (Consistency, Cleanliness).</div>
-        <div style="overflow:auto; padding:16px">
-          <table style="border-collapse:collapse; width:100%; min-width: 900px; font-size:14px">
+      
+      <!-- Table 1 -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Table 1 — Results on Models Exposed to Proportionate Fakenews Context</h3>
+          <p>Consistency and Cleanliness evaluation metrics across different models and methods</p>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
             <thead>
-              <tr style="background:rgba(255,255,255,.8)">
-                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Model</th>
-                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Eval</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">With context</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">No context</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">Self‑Aligned</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">Human‑Aligned</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">Self‑Enhanced</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">Human‑Aligned (Awareness)</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">Context Filtering</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">RW‑Steering</th>
+              <tr>
+                <th>Model</th>
+                <th>Eval</th>
+                <th>With context</th>
+                <th>No context</th>
+                <th>Self‑Aligned</th>
+                <th>Human‑Aligned</th>
+                <th>Self‑Enhanced</th>
+                <th>Human‑Aligned (Awareness)</th>
+                <th>Context Filtering</th>
+                <th>RW‑Steering</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Phi‑2</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>66.3</td><td>48.5</td><td>82.3</td><td>80.7</td><td>77.9</td><td>79.8</td><td>75.6</td><td>76.2</td></tr>
-              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>53.0</td><td>75.5</td><td>79.4</td><td>80.6</td><td>82.6</td><td>81.4</td><td>58.5</td><td>83.9</td></tr>
+              <tr><td rowspan="2"><em>Phi‑2</em></td><td>Consistency</td><td>66.3</td><td>48.5</td><td>82.3</td><td>80.7</td><td>77.9</td><td>79.8</td><td>75.6</td><td class="highlight-cell">76.2</td></tr>
+              <tr><td>Cleanliness</td><td>53.0</td><td>75.5</td><td>79.4</td><td>80.6</td><td>82.6</td><td>81.4</td><td>58.5</td><td class="highlight-cell">83.9</td></tr>
 
-              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Qwen2‑1.5B</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>62.7</td><td>46.1</td><td>70.8</td><td>74.4</td><td>68.4</td><td>68.4</td><td>66.3</td><td>72.9</td></tr>
-              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>51.2</td><td>83.3</td><td>83.5</td><td>77.8</td><td>82.1</td><td>78.6</td><td>53.1</td><td>82.0</td></tr>
+              <tr><td rowspan="2"><em>Qwen2‑1.5B</em></td><td>Consistency</td><td>62.7</td><td>46.1</td><td>70.8</td><td>74.4</td><td>68.4</td><td>68.4</td><td>66.3</td><td class="highlight-cell">72.9</td></tr>
+              <tr><td>Cleanliness</td><td>51.2</td><td>83.3</td><td>83.5</td><td>77.8</td><td>82.1</td><td>78.6</td><td>53.1</td><td class="highlight-cell">82.0</td></tr>
 
-              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>gemma‑2‑2b</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>67.4</td><td>52.5</td><td>73.5</td><td>74.3</td><td>69.0</td><td>72.4</td><td>69.1</td><td>73.9</td></tr>
-              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>55.3</td><td>88.8</td><td>88.2</td><td>75.5</td><td>86.4</td><td>78.3</td><td>58.1</td><td>87.5</td></tr>
+              <tr><td rowspan="2"><em>gemma‑2‑2b</em></td><td>Consistency</td><td>67.4</td><td>52.5</td><td>73.5</td><td>74.3</td><td>69.0</td><td>72.4</td><td>69.1</td><td class="highlight-cell">73.9</td></tr>
+              <tr><td>Cleanliness</td><td>55.3</td><td>88.8</td><td>88.2</td><td>75.5</td><td>86.4</td><td>78.3</td><td>58.1</td><td class="highlight-cell">87.5</td></tr>
 
-              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Llama‑3.2‑1B</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>68.1</td><td>44.6</td><td>72.3</td><td>75.0</td><td>70.1</td><td>73.2</td><td>68.1</td><td>74.1</td></tr>
-              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>64.8</td><td>84.9</td><td>85.3</td><td>76.9</td><td>85.9</td><td>77.9</td><td>72.2</td><td>85.4</td></tr>
+              <tr><td rowspan="2"><em>Llama‑3.2‑1B</em></td><td>Consistency</td><td>68.1</td><td>44.6</td><td>72.3</td><td>75.0</td><td>70.1</td><td>73.2</td><td>68.1</td><td class="highlight-cell">74.1</td></tr>
+              <tr><td>Cleanliness</td><td>64.8</td><td>84.9</td><td>85.3</td><td>76.9</td><td>85.9</td><td>77.9</td><td>72.2</td><td class="highlight-cell">85.4</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="card" style="margin-top:16px; padding:0">
-        <div style="padding:16px 16px 0 16px; color:#475569">Table 2 — Results on Qwen2 Model Exposed to Disproportionate Inappropriate Context (Evaluation Metric: Response Quality).</div>
-        <div style="overflow:auto; padding:16px">
-          <table style="border-collapse:collapse; width:100%; min-width: 1200px; font-size:14px">
+      <!-- Table 2 -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Table 2 — Results on Qwen2 Model Exposed to Disproportionate Inappropriate Context</h3>
+          <p>Response Quality evaluation across contamination levels (0-45%)</p>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
             <thead>
-              <tr style="background:rgba(255,255,255,.8)">
-                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Method</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">0%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">5%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">10%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">15%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">20%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">25%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">30%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">35%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">40%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">45%</th>
+              <tr>
+                <th>Method</th>
+                <th>0%</th>
+                <th>5%</th>
+                <th>10%</th>
+                <th>15%</th>
+                <th>20%</th>
+                <th>25%</th>
+                <th>30%</th>
+                <th>35%</th>
+                <th>40%</th>
+                <th>45%</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>Baseline (With Context)</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px">74.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">61.9</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">54.6</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">57.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.3</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">54.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">57.4</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">56.4</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">56.7</td>
+                <td><em>Baseline (With Context)</em></td>
+                <td>74.1</td>
+                <td>61.9</td>
+                <td>59.2</td>
+                <td>54.6</td>
+                <td>57.1</td>
+                <td>59.3</td>
+                <td>54.8</td>
+                <td>57.4</td>
+                <td>56.4</td>
+                <td>56.7</td>
               </tr>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>Context Filtering</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px">74.9</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">72.7</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">72.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">64.7</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.9</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">58.4</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">60.7</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.5</td>
+                <td><em>Context Filtering</em></td>
+                <td>74.9</td>
+                <td>72.7</td>
+                <td>72.1</td>
+                <td>64.7</td>
+                <td>59.9</td>
+                <td>58.4</td>
+                <td>59.2</td>
+                <td>60.7</td>
+                <td>59.1</td>
+                <td>59.5</td>
               </tr>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>RW‑Steering</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">77.6</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.4</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">75.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">75.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">75.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">75.3</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">77.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.9</td>
+                <td><em>RW‑Steering</em></td>
+                <td class="highlight-cell">77.6</td>
+                <td class="highlight-cell">76.4</td>
+                <td class="highlight-cell">75.1</td>
+                <td class="highlight-cell">75.8</td>
+                <td class="highlight-cell">76.1</td>
+                <td class="highlight-cell">75.8</td>
+                <td class="highlight-cell">76.2</td>
+                <td class="highlight-cell">75.3</td>
+                <td class="highlight-cell">77.2</td>
+                <td class="highlight-cell">76.9</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="card" style="margin-top:16px; padding:0">
-        <div style="padding:16px 16px 0 16px; color:#475569">Table 2 (continued) — Results on Qwen2 Model Exposed to Disproportionate Inappropriate Context (50–95%).</div>
-        <div style="overflow:auto; padding:16px">
-          <table style="border-collapse:collapse; width:100%; min-width: 1200px; font-size:14px">
+      <!-- Table 2 (continued) -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Table 2 (continued) — Results on Qwen2 Model Exposed to Disproportionate Inappropriate Context</h3>
+          <p>Response Quality evaluation across contamination levels (50-95%)</p>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
             <thead>
-              <tr style="background:rgba(255,255,255,.8)">
-                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Method</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">50%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">55%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">60%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">65%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">70%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">75%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">80%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">85%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">90%</th>
-                <th style="border:1px solid var(--border); padding:8px 10px">95%</th>
+              <tr>
+                <th>Method</th>
+                <th>50%</th>
+                <th>55%</th>
+                <th>60%</th>
+                <th>65%</th>
+                <th>70%</th>
+                <th>75%</th>
+                <th>80%</th>
+                <th>85%</th>
+                <th>90%</th>
+                <th>95%</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>Baseline (With Context)</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px">55.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">53.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">53.7</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">54.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">53.9</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">54.3</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">51.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">50.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">49.0</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">47.8</td>
+                <td><em>Baseline (With Context)</em></td>
+                <td>55.2</td>
+                <td>53.8</td>
+                <td>53.7</td>
+                <td>54.8</td>
+                <td>53.9</td>
+                <td>54.3</td>
+                <td>51.5</td>
+                <td>50.8</td>
+                <td>49.0</td>
+                <td>47.8</td>
               </tr>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>Context Filtering</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px">61.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">61.4</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">59.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">62.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">58.6</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">61.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">57.3</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">55.7</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">54.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px">55.5</td>
+                <td><em>Context Filtering</em></td>
+                <td>61.2</td>
+                <td>61.4</td>
+                <td>59.2</td>
+                <td>62.5</td>
+                <td>58.6</td>
+                <td>61.1</td>
+                <td>57.3</td>
+                <td>55.7</td>
+                <td>54.5</td>
+                <td>55.5</td>
               </tr>
               <tr>
-                <td style="border:1px solid var(--border); padding:8px 10px"><em>RW‑Steering</em></td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">75.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.9</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.8</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">78.2</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">74.5</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">74.1</td>
-                <td style="border:1px solid var(--border); padding:8px 10px; font-weight:bold">76.2</td>
+                <td><em>RW‑Steering</em></td>
+                <td class="highlight-cell">75.5</td>
+                <td class="highlight-cell">76.9</td>
+                <td class="highlight-cell">76.8</td>
+                <td class="highlight-cell">76.1</td>
+                <td class="highlight-cell">78.2</td>
+                <td class="highlight-cell">76.1</td>
+                <td class="highlight-cell">76.5</td>
+                <td class="highlight-cell">74.5</td>
+                <td class="highlight-cell">74.1</td>
+                <td class="highlight-cell">76.2</td>
               </tr>
             </tbody>
           </table>
@@ -563,35 +715,57 @@
     <!-- FINDINGS -->
     <section class="section" id="findings">
       <h2 class="h2">Findings</h2>
-      <div class="findings">
-        <details class="finding" open>
-          <summary>Finding 1 — Small amounts of inappropriate context can disproportionately steer LLM behavior</summary>
-          <div class="content">
-            Evidence from the testbed shows that early or salient inappropriate signals induce large behavior shifts ("RW behavior"), even when they represent a minority of the context.
-            <div class="badge" style="margin-top:8px">RW behavior • Minority but salient signals</div>
+      
+      <!-- Finding 1 -->
+      <div class="finding-bubble">
+        <div class="finding-number">01</div>
+        <div class="finding-content">
+          <h3>Small amounts of inappropriate context can disproportionately steer LLM behavior</h3>
+          <p>Evidence from the testbed shows that early or salient inappropriate signals induce large behavior shifts ("RW behavior"), even when they represent a minority of the context.</p>
+          <div class="finding-tags">
+            <span class="finding-tag">RW behavior</span>
+            <span class="finding-tag">Minority but salient signals</span>
           </div>
-        </details>
-        <details class="finding">
-          <summary>Finding 2 — RW model explains and predicts the shape of behavior curves</summary>
-          <div class="content">
-            The adapted Rescorla–Wagner model closely predicts performance degradation patterns under mixed contexts, aligning with empirical curves across contamination levels.
-            <div class="badge" style="margin-top:8px">Modeling • Predictive alignment</div>
+        </div>
+      </div>
+
+      <!-- Finding 2 -->
+      <div class="finding-bubble">
+        <div class="finding-number">02</div>
+        <div class="finding-content">
+          <h3>RW model explains and predicts the shape of behavior curves</h3>
+          <p>The adapted Rescorla–Wagner model closely predicts performance degradation patterns under mixed contexts, aligning with empirical curves across contamination levels.</p>
+          <div class="finding-tags">
+            <span class="finding-tag">Modeling</span>
+            <span class="finding-tag">Predictive alignment</span>
           </div>
-        </details>
-        <details class="finding">
-          <summary>Finding 3 — Alignment-only and filtering baselines fail to generalize across mixture ratios</summary>
-          <div class="content">
-            Self-/human-aligned responses and rule-based filtering offer limited stability and may collapse as mixture ratios change.
-            <div class="badge" style="margin-top:8px">Baselines • Generalization gap</div>
+        </div>
+      </div>
+
+      <!-- Finding 3 -->
+      <div class="finding-bubble">
+        <div class="finding-number">03</div>
+        <div class="finding-content">
+          <h3>Alignment-only and filtering baselines fail to generalize across mixture ratios</h3>
+          <p>Self-/human-aligned responses and rule-based filtering offer limited stability and may collapse as mixture ratios change.</p>
+          <div class="finding-tags">
+            <span class="finding-tag">Baselines</span>
+            <span class="finding-tag">Generalization gap</span>
           </div>
-        </details>
-        <details class="finding">
-          <summary>Finding 4 — RW‑Steering reverses the undesired curve and improves overall quality</summary>
-          <div class="content">
-            With a joint judgment + answer objective and extra training on few inappropriate segments, RW‑Steering generalizes robustly and improves average response quality.
-            <div class="badge" style="margin-top:8px">Generalization • +Quality</div>
+        </div>
+      </div>
+
+      <!-- Finding 4 -->
+      <div class="finding-bubble">
+        <div class="finding-number">04</div>
+        <div class="finding-content">
+          <h3>RW‑Steering reverses the undesired curve and improves overall quality</h3>
+          <p>With a joint judgment + answer objective and extra training on few inappropriate segments, RW‑Steering generalizes robustly and improves average response quality.</p>
+          <div class="finding-tags">
+            <span class="finding-tag">Generalization</span>
+            <span class="finding-tag">+Quality</span>
           </div>
-        </details>
+        </div>
       </div>
     </section>
 
