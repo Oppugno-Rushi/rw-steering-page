@@ -1,0 +1,1 @@
+Dreamy light theme with Findings section and floating images.

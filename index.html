@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RW‑Steering: Context Engineering for Trustworthiness</title>
+  <meta name="description" content="RW‑Steering reverses undesired behavior curves under mixed and inappropriate contexts." />
+  <meta property="og:title" content="RW‑Steering: Context Engineering for Trustworthiness" />
+  <meta property="og:description" content="Rescorla–Wagner Steering (RW‑Steering) improves response quality by discounting inappropriate signals in context." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/figure1.png" />
+  <meta name="theme-color" content="#f6e5ff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Dreamy pastel palette */
+      --bg0: #fff7ff;
+      --bg1: #fef3f8;
+      --bg2: #f0f5ff;
+      --bg3: #f5f3ff;
+      --ink: #0b1220;
+      --muted: #566072;
+      --accent1: #7c3aed;  /* violet */
+      --accent2: #22d3ee;  /* cyan */
+      --accent3: #fb7185;  /* coral */
+      --card: rgba(255,255,255,.82);
+      --border: rgba(2,6,23,.08);
+      --shadow: 0 10px 30px rgba(17,24,39,.12);
+      --radius: 16px;
+    }
+
+    * { box-sizing:border-box }
+    html, body { height:100% }
+    body {
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--ink);
+      /* layered dreamy gradient background */
+      background:
+        radial-gradient(1200px 600px at -5% -10%, rgba(124,58,237,.20), transparent 60%),
+        radial-gradient(900px 520px at 110% 0%, rgba(34,211,238,.22), transparent 60%),
+        radial-gradient(900px 520px at 10% 120%, rgba(251,113,133,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    }
+
+    a { color: var(--accent1); text-decoration: none }
+    .container { width:min(1100px,92%); margin-inline:auto }
+
+    /* Nav */
+    .nav { position: sticky; top:0; z-index:10; backdrop-filter: blur(8px); border-bottom:1px solid var(--border);
+      background: rgba(255,255,255,.6); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:16px }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; color:#111827 }
+    .brand-dot { width:10px; height:10px; border-radius:50%; background:conic-gradient(from 180deg, var(--accent2), var(--accent1), var(--accent3)); box-shadow:0 0 10px rgba(124,58,237,.35) }
+    .links { display:flex; gap:18px; flex-wrap:wrap }
+    .links a { padding:8px 10px; border-radius:10px; color:var(--muted) }
+    .links a:hover { background: rgba(255,255,255,.7); color:#0b1220 }
+
+    /* Hero */
+    .hero { padding:70px 0 26px }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:#334155;
+      background: rgba(255,255,255,.7); border:1px solid var(--border); padding:6px 10px; border-radius:999px; }
+    .title { font-size: clamp(30px, 5vw, 52px); line-height:1.06; margin:14px 0 10px; font-weight:800;
+      color:#0f172a; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+    .gradient { background: linear-gradient(90deg, var(--accent2), var(--accent1)); -webkit-background-clip:text; background-clip:text; color:transparent }
+    .subtitle { color: var(--muted); font-size:clamp(14px, 2.4vw, 18px) }
+    .author-grid { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 18px }
+    .chip { padding:7px 12px; background: rgba(255,255,255,.85); border:1px solid var(--border); border-radius:999px; color:#111827; font-size:14px }
+
+    /* Buttons */
+    .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:10px }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:600; letter-spacing:.2px;
+      border:1px solid var(--border); background: rgba(255,255,255,.9); box-shadow: var(--shadow); color:#0b1220; transition: transform .18s ease, box-shadow .18s ease; }
+    .btn:hover { transform: translateY(-2px) }
+    .btn.primary { background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#fff; border-color: transparent }
+
+    /* Cards & Sections */
+    .section { padding:40px 0 }
+    .card { background: var(--card); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding:22px }
+    .h2 { font-size: 22px; margin:0 0 14px; font-weight:800; color:#0f172a }
+
+    /* Dreamy image wrapper (float + tilt) */
+    .floaty { position:relative; border-radius: 18px; overflow: hidden; border:1px solid var(--border);
+      box-shadow: 0 14px 40px rgba(31,41,55,.18); transform-style: preserve-3d;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+    .floaty img { width:100%; display:block; transform: translateZ(20px); }
+    .floaty::after { content:''; position:absolute; inset:-2px; border-radius: 20px;
+      background: linear-gradient(120deg, rgba(124,58,237,.12), rgba(34,211,238,.12), rgba(251,113,133,.12));
+      pointer-events:none; mix-blend: overlay; }
+    .floaty:hover { transform: translateY(-4px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.01);
+      box-shadow: 0 20px 60px rgba(31,41,55,.22); }
+
+    .caption { text-align:center; color:#475569; font-size:13.5px; margin-top:10px }
+
+    /* Figures grid */
+    .fig-grid { display:grid; grid-template-columns: 1fr; gap:20px }
+    .figure { background: var(--card); border:1px solid var(--border); border-radius: 16px; padding:16px; box-shadow: var(--shadow) }
+    .figure h3 { margin:0 0 10px; font-size:18px; color:#0f172a }
+
+    /* Findings (accordion cards) */
+    .findings { display:grid; gap:16px }
+    details.finding { border:1px solid var(--border); border-radius:16px; background: var(--card); box-shadow: var(--shadow) }
+    details.finding > summary {
+      list-style:none; cursor:pointer; padding:14px 16px; border-radius:16px 16px 0 0;
+      font-weight:700; background: linear-gradient(90deg, rgba(124,58,237,.18), rgba(34,211,238,.18));
+      color:#0f172a; position:relative;
+    }
+    details.finding > summary::-webkit-details-marker { display:none }
+    details.finding[open] > summary { border-bottom:1px solid var(--border) }
+    details.finding .content { padding:14px 16px; color:#1f2937 }
+    .badge { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px; background:#fff; border:1px solid var(--border) }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="brand-dot"></span> RW‑Steering</div>
+      <nav class="links">
+        <a href="#abstract">Abstract</a>
+        <a href="#figures">Figures</a>
+        <a href="#tables">Tables</a>
+        <a href="#findings">Findings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <span class="eyebrow">Project Page • Dreamy pastel theme</span>
+      <h1 class="title">Context Engineering for Trustworthiness:<br><span class="gradient">Rescorla–Wagner Steering</span> Under Mixed and Inappropriate Contexts</h1>
+      <p class="subtitle">A simple, generalizable approach to make LLMs internally identify and ignore inappropriate signals in mixed contexts.</p>
+
+      <div class="author-grid" aria-label="authors">
+        <span class="chip">Rushi Wang</span>
+        <span class="chip">Jiateng Liu</span>
+        <span class="chip">Cheng Qian</span>
+        <span class="chip">Yifan Shen</span>
+        <span class="chip">Yanzhou Pan</span>
+        <span class="chip">Zhaozhuo Xu</span>
+        <span class="chip">Ahmed Abbasi</span>
+        <span class="chip">Heng Ji</span>
+        <span class="chip">Denghui Zhang</span>
+      </div>
+      <div class="subtitle">UIUC ♡ • Google ♣ • Notre Dame ♠ • Stevens ♢</div>
+
+      <div class="cta">
+        <a class="btn primary" href="https://arxiv.org/abs/2509.04500" target="_blank" rel="noopener">📝 arXiv</a>
+        <a class="btn" href="https://arxiv.org/pdf/2509.04500" target="_blank" rel="noopener">📄 PDF</a>
+        <a class="btn" href="https://github.com/Oppugno-Rushi/RW-Steering" target="_blank" rel="noopener">💻 Code</a>
+      </div>
+
+      <div class="floaty" style="margin-top:22px">
+        <img src="./assets/figure1.png" alt="Figure 1 teaser">
+      </div>
+      <p class="caption">Figure 1. Poisoned Context Testbed and behavioral risk under small amounts of inappropriate context.</p>
+    </section>
+
+    <!-- ABSTRACT -->
+    <section class="section" id="abstract">
+      <div class="card">
+        <h2 class="h2">Abstract </h2>
+        <p>
+        We construct a <em>Poisoned Context Testbed</em> pairing queries with realistic mixed context and adapt
+        a Rescorla–Wagner (RW) model to explain how competing contextual signals steer LLM behavior.
+        Even small amounts of inappropriate information can disproportionately degrade responses.
+        We propose <strong>RW‑Steering</strong>, a two‑stage fine‑tuning approach that trains models to internally identify
+        and discount inappropriate signals, reversing the undesired behavior curves and improving response quality.
+        </p>
+      </div>
+    </section>
+
+    <!-- FIGURES -->
+    <section class="section" id="figures">
+      <h2 class="h2">Figures</h2>
+      <div class="fig-grid">
+        <div class="figure">
+          <h3>Figure 1 — Poisoned Context Testbed</h3>
+          <div class="floaty tilt"><img src="./assets/figure1.png" alt="Figure 1: Poisoned Context Testbed and example with mixed context."></div>
+          <div class="caption">Illustrates the testbed pairing user queries with real-world mixed contexts and shows that even small amounts of inappropriate content can mislead models.</div>
+        </div>
+
+        <div class="figure">
+          <h3>Figure 2 — RW model vs. LLM behavior curves</h3>
+          <div class="floaty tilt"><img src="./assets/figure2.png" alt="Figure 2: Behavior curves predicted by the adapted RW model vs. actual LLM responses."></div>
+          <div class="caption">Predictions from the adapted RW model closely match LLM responses; performance drops sharply when inappropriate information appears early.</div>
+        </div>
+
+        <div class="figure">
+          <h3>Figure 3 — RW‑Steering vs. baselines</h3>
+          <div class="floaty tilt"><img src="./assets/figure3.png" alt="Figure 3: Baselines (alignment, awareness, filtering) and our RW‑Steering approach."></div>
+          <div class="caption">Left: three baselines and their limitations. Right: RW‑Steering jointly optimizes judgment and answer generation and adds extra training with few inappropriate segments.</div>
+        </div>
+
+        <div class="figure">
+          <h3>Figure 4 — Behavior curve reversal</h3>
+          <div class="floaty tilt"><img src="./assets/figure4.jpg" alt="Figure 4: Qwen2 behavior under disproportionate contexts; RW‑Steering reverses the undesired curve."></div>
+          <div class="caption">RW‑Steering yields stable, generalizable improvements across contamination levels compared to alignment-only and filtering.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLES -->
+    <section class="section" id="tables">
+      <h2 class="h2">Tables</h2>
+      <div class="card" style="padding:0">
+        <div style="padding:16px 16px 0 16px; color:#475569">Table 1 — Results on models exposed to proportionate fakenews context (Consistency, Cleanliness).</div>
+        <div style="overflow:auto; padding:16px">
+          <table style="border-collapse:collapse; width:100%; min-width: 900px; font-size:14px">
+            <thead>
+              <tr style="background:rgba(255,255,255,.8)">
+                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Model</th>
+                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Eval</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">With context</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">No context</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">Self‑Aligned</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">Human‑Aligned</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">Self‑Enhanced</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">Human‑Aligned (Awareness)</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">Context Filtering</th>
+                <th style="border:1px solid var(--border); padding:8px 10px">RW‑Steering</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Phi‑2</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>66.3</td><td>48.5</td><td>82.3</td><td>80.7</td><td>77.9</td><td>79.8</td><td>75.6</td><td>76.2</td></tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>53.0</td><td>75.5</td><td>79.4</td><td>80.6</td><td>82.6</td><td>81.4</td><td>58.5</td><td>83.9</td></tr>
+
+              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Qwen2‑1.5B</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>62.7</td><td>46.1</td><td>70.8</td><td>74.4</td><td>68.4</td><td>68.4</td><td>66.3</td><td>72.9</td></tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>51.2</td><td>83.3</td><td>83.5</td><td>77.8</td><td>82.1</td><td>78.6</td><td>53.1</td><td>82.0</td></tr>
+
+              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>gemma‑2‑2b</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>67.4</td><td>52.5</td><td>73.5</td><td>74.3</td><td>69.0</td><td>72.4</td><td>69.1</td><td>73.9</td></tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>55.3</td><td>88.8</td><td>88.2</td><td>75.5</td><td>86.4</td><td>78.3</td><td>58.1</td><td>87.5</td></tr>
+
+              <tr><td style="border:1px solid var(--border); padding:8px 10px" rowspan="2"><em>Llama‑3.2‑1B</em></td><td style="border:1px solid var(--border); padding:8px 10px">Consistency</td><td>68.1</td><td>44.6</td><td>72.3</td><td>75.0</td><td>70.1</td><td>73.2</td><td>68.1</td><td>74.1</td></tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px">Cleanliness</td><td>64.8</td><td>84.9</td><td>85.3</td><td>76.9</td><td>85.9</td><td>77.9</td><td>72.2</td><td>85.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px; padding:0">
+        <div style="padding:16px 16px 0 16px; color:#475569">Table 2 — Response quality of Qwen2 under disproportionate inappropriate context (0–95%).</div>
+        <div style="overflow:auto; padding:16px">
+          <table style="border-collapse:collapse; width:100%; min-width: 1100px; font-size:14px">
+            <thead>
+              <tr style="background:rgba(255,255,255,.8)">
+                <th style="border:1px solid var(--border); padding:8px 10px; text-align:left">Method</th>
+                %HEADERS1%
+                %HEADERS2%
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px"><em>Baseline (With Context)</em></td>
+                %BASELINE1% %BASELINE2%
+              </tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px"><em>Context Filtering</em></td>
+                %FILTER1% %FILTER2%
+              </tr>
+              <tr><td style="border:1px solid var(--border); padding:8px 10px"><em>RW‑Steering</em></td>
+                %RW1% %RW2%
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINDINGS -->
+    <section class="section" id="findings">
+      <h2 class="h2">Findings</h2>
+      <div class="findings">
+        <details class="finding" open>
+          <summary>Finding 1 — Small amounts of inappropriate context can disproportionately steer LLM behavior</summary>
+          <div class="content">
+            Evidence from the testbed shows that early or salient inappropriate signals induce large behavior shifts ("RW behavior"), even when they represent a minority of the context.
+            <div class="badge" style="margin-top:8px">RW behavior • Minority but salient signals</div>
+          </div>
+        </details>
+        <details class="finding">
+          <summary>Finding 2 — RW model explains and predicts the shape of behavior curves</summary>
+          <div class="content">
+            The adapted Rescorla–Wagner model closely predicts performance degradation patterns under mixed contexts, aligning with empirical curves across contamination levels.
+            <div class="badge" style="margin-top:8px">Modeling • Predictive alignment</div>
+          </div>
+        </details>
+        <details class="finding">
+          <summary>Finding 3 — Alignment-only and filtering baselines fail to generalize across mixture ratios</summary>
+          <div class="content">
+            Self-/human-aligned responses and rule-based filtering offer limited stability and may collapse as mixture ratios change.
+            <div class="badge" style="margin-top:8px">Baselines • Generalization gap</div>
+          </div>
+        </details>
+        <details class="finding">
+          <summary>Finding 4 — RW‑Steering reverses the undesired curve and improves overall quality</summary>
+          <div class="content">
+            With a joint judgment + answer objective and extra training on few inappropriate segments, RW‑Steering generalizes robustly and improves average response quality.
+            <div class="badge" style="margin-top:8px">Generalization • +Quality</div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container" style="padding: 28px 0 48px; color: #6b7280; text-align:center; font-size:13px">
+      <div>© 2025 RW‑Steering Authors. Built for GitHub Pages. Dreamy pastel theme.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Build Table 2 cells programmatically (to keep HTML readable)
+    const headers1 = ["0%","5%","10%","15%","20%","25%","30%","35%","40%","45%"];
+    const headers2 = ["50%","55%","60%","65%","70%","75%","80%","85%","90%","95%"];
+    const baseline1 = [74.1,61.9,59.2,54.6,57.1,59.3,54.8,57.4,56.4,56.7];
+    const baseline2 = [55.2,53.8,53.7,54.8,53.9,54.3,51.5,50.8,49.0,47.8];
+    const filter1 = [74.9,72.7,72.1,64.7,59.9,58.4,59.2,60.7,59.1,59.5];
+    const filter2 = [61.2,61.4,59.2,62.5,58.6,61.1,57.3,55.7,54.5,55.5];
+    const rw1 = [77.6,76.4,75.1,75.8,76.1,75.8,76.2,75.3,77.2,76.9];
+    const rw2 = [75.5,76.9,76.8,76.1,78.2,76.1,76.5,74.5,74.1,76.2];
+
+    function fillRow(arr){ return arr.map(v => `<td style="border:1px solid var(--border); padding:8px 10px">${v}</td>`).join(' ') }
+    document.body.innerHTML = document.body.innerHTML
+      .replace('%HEADERS1%', headers1.map(h => `<th style="border:1px solid var(--border); padding:8px 10px">${h}</th>`).join(' '))
+      .replace('%HEADERS2%', headers2.map(h => `<th style="border:1px solid var(--border); padding:8px 10px">${h}</th>`).join(' '))
+      .replace('%BASELINE1%', fillRow(baseline1)).replace('%BASELINE2%', fillRow(baseline2))
+      .replace('%FILTER1%', fillRow(filter1)).replace('%FILTER2%', fillRow(filter2))
+      .replace('%RW1%', fillRow(rw1)).replace('%RW2%', fillRow(rw2));
+
+    // Subtle tilt effect on elements with .tilt
+    for (const el of document.querySelectorAll('.tilt')) {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - r.left) / r.width - 0.5;
+        const my = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty('--rx', `${-my*3}deg`);
+        el.style.setProperty('--ry', `${mx*3}deg`);
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+      });
+    }
+  </script>
+</body>
+</html>
