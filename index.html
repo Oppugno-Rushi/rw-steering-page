@@ -950,9 +950,8 @@
           <div class="figure-text">
             <h3>Poisoned Context Testbed</h3>
             <p class="figure-description">
-              We construct a realistic testbed that pairs user queries with mixed contexts containing both appropriate and inappropriate information. 
-              <strong style="color: #fbbf24;">Key insight:</strong> Even small amounts of inappropriate content (as little as 5-10%) can significantly mislead LLM responses, 
-              demonstrating the vulnerability of current models to contextual contamination.
+              A controlled benchmark pairing real queries with web/RAG-like mixed contexts that blend evidence with inappropriate content (e.g., fake news, hate speech, non-factual claims, privacy leaks). 
+              By varying contamination type, position, and ratio, we trace behavior curves and show that even minor contamination can steer answers—providing a rigorous stress test for robustness and steering methods.
             </p>
             <div class="figure-badge">Testbed Design • Mixed Contexts • Vulnerability Analysis</div>
           </div>
@@ -966,7 +965,7 @@
       <div class="figure-card">
         <div class="figure-content">
           <div class="figure-text">
-            <h3>RW Model vs. LLM Behavior Curves</h3>
+            <h3>UP: Behavior curves predicted by our adapted Rescorla–Wagner (RW) model and the actual responses of three LLMs when exposed to two types of contextual information. As the proportion of the first type (C1) increases, the RW model's predictions closely match the LLMs' real-world outputs. Down: Behavior curves when models are exposed to disproportionate inappropriate context. Performance drops sharply when inappropriate information appears early, validating the pattern predicted by our RW model.</h3>
             <p class="figure-description">
               The adapted Rescorla-Wagner model accurately predicts LLM behavior patterns under mixed contexts. 
               <strong style="color: #60a5fa;">Critical finding:</strong> Performance degradation follows predictable curves, with early inappropriate signals 
@@ -984,7 +983,7 @@
       <div class="figure-card">
         <div class="figure-content">
           <div class="figure-text">
-            <h3>RW‑Steering vs. Baselines</h3>
+            <h3>Our Approaches for Steering the Behavior of LLMs. Left: Three baseline approaches considered, each subject to different limitations. Right: Our RW-Steering approach. We first restructure the prompt to encourage the model to jointly optimize its judgment of inappropriate context and the generation of human-preferred answers, thereby internalizing the desired behavior. We then supplement training with examples containing a small number of inappropriate context segments to address cases where the model's internal judgment may fail.</h3>
             <p class="figure-description">
               Comparison of our RW-Steering approach against three baseline methods: alignment-only, awareness-based, and context filtering. 
               <strong style="color: #10b981;">Advantage:</strong> RW-Steering uniquely combines joint judgment-answer optimization with targeted training 
@@ -1002,7 +1001,7 @@
       <div class="figure-card">
         <div class="figure-content">
           <div class="figure-text">
-            <h3>Behavior Curve Reversal</h3>
+            <h3>Figure: Behavior curves under disproportionate mixed context (Qwen2 & Phi-2). Each plot shows response quality (0–100) vs. the proportion of inappropriate content. Left (baseline): alignment fine-tuning degrades performance relative to the base model. Middle (baseline): context filtering yields general improvement but remains unstable. Right (ours): RW-Steering reverses the undesired behavior curve and delivers more robust, generalizable performance across mixture ratios.</h3>
             <p class="figure-description">
               RW-Steering successfully reverses the undesired behavior curves observed in baseline methods. 
               <strong style="color: #f59e0b;">Key result:</strong> Our approach maintains stable, high-quality responses across all contamination levels (0-95%), 
