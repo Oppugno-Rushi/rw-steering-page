@@ -146,23 +146,13 @@
       font-weight:800; 
       letter-spacing:.2px; 
       color:#111827;
-      background: linear-gradient(135deg, #7c3aed, #22d3ee, #fb7185);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: magicalText 4s ease-in-out infinite;
     }
     .brand-dot { 
-      width:12px; 
-      height:12px; 
+      width:10px; 
+      height:10px; 
       border-radius:50%; 
-      background:conic-gradient(from 180deg, var(--accent2), var(--accent1), var(--accent3), var(--accent2));
-      background-size: 200% 200%;
-      box-shadow:
-        0 0 10px rgba(124,58,237,.35),
-        0 0 20px rgba(34,211,238,.25),
-        0 0 30px rgba(251,113,133,.15);
-      animation: magicalRotate 3s linear infinite;
+      background:conic-gradient(from 180deg, var(--accent2), var(--accent1), var(--accent3)); 
+      box-shadow:0 0 10px rgba(124,58,237,.35);
     }
     .links { display:flex; gap:18px; flex-wrap:wrap }
     .links a { 
@@ -216,57 +206,15 @@
       position: relative; 
     }
     .rw-text { 
-      background: linear-gradient(135deg, #7c3aed, #a855f7, #22d3ee, #fb7185, #7c3aed); 
-      background-size: 300% 300%;
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #22d3ee, #fb7185); 
       -webkit-background-clip: text; 
       background-clip: text; 
       color: transparent; 
       font-size: clamp(32px, 5.5vw, 56px); 
       font-weight: 900; 
-      text-shadow: 
-        0 0 10px rgba(124,58,237,0.5),
-        0 0 20px rgba(34,211,238,0.3),
-        0 0 30px rgba(251,113,133,0.2);
+      text-shadow: 0 0 30px rgba(124,58,237,0.3); 
       display: inline-block; 
-      margin-right: 12px;
-      animation: magicalText 4s ease-in-out infinite;
-      position: relative;
-    }
-    .rw-text::before {
-      content: 'RW‑Steering';
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: linear-gradient(135deg, #7c3aed, #a855f7, #22d3ee, #fb7185);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      filter: blur(2px);
-      opacity: 0.7;
-      z-index: -1;
-      animation: magicalGlow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes magicalText {
-      0%, 100% { 
-        background-position: 0% 50%;
-        transform: scale(1);
-      }
-      50% { 
-        background-position: 100% 50%;
-        transform: scale(1.02);
-      }
-    }
-    
-    @keyframes magicalGlow {
-      0% { 
-        filter: blur(2px);
-        opacity: 0.7;
-      }
-      100% { 
-        filter: blur(4px);
-        opacity: 0.9;
-      }
+      margin-right: 12px; 
     }
     .under-text { 
       background: linear-gradient(135deg, #374151, #4b5563, #6b7280); 
