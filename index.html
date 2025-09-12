@@ -909,6 +909,18 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+    .context-box .info-item {
+      margin: 4px 0;
+      padding: 2px 0;
+    }
+    .context-box .info-correct {
+      color: #059669;
+      font-weight: 600;
+    }
+    .context-box .info-incorrect {
+      color: #dc2626;
+      font-weight: 600;
+    }
     .response-box {
       background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(34,211,238,0.05));
       border-color: rgba(124,58,237,0.2);
@@ -1359,6 +1371,7 @@
               <option value="alignment-human">Alignment Fine-tuning (Human-Aligned)</option>
               <option value="context-filtering">Context Filtering</option>
               <option value="rw-steering">RW-Steering</option>
+              <option value="ground-truth">Ground Truth</option>
             </select>
           </div>
         </div>
@@ -1658,6 +1671,42 @@ The question is: Is the survival rate for prostate cancer higher in the United S
       }
     };
 
+    // Function to format input context with color coding
+    function formatInputContext(caseData, caseType) {
+      const lines = caseData.inputContext.split('\n');
+      let formattedHTML = '';
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.match(/^\d+\./)) {
+          const itemNumber = parseInt(line.match(/^(\d+)\./)[1]);
+          let className = 'info-item';
+          
+          if (caseType === 'case1') {
+            // Case 1: Items 1-12 are correct (green), 13-20 are incorrect (red)
+            if (itemNumber >= 1 && itemNumber <= 12) {
+              className += ' info-correct';
+            } else if (itemNumber >= 13 && itemNumber <= 20) {
+              className += ' info-incorrect';
+            }
+          } else if (caseType === 'case2') {
+            // Case 2: Items 1-4 are correct (green), 5-20 are incorrect (red)
+            if (itemNumber >= 1 && itemNumber <= 4) {
+              className += ' info-correct';
+            } else if (itemNumber >= 5 && itemNumber <= 20) {
+              className += ' info-incorrect';
+            }
+          }
+          
+          formattedHTML += `<div class="${className}">${line}</div>`;
+        } else {
+          formattedHTML += `<div>${line}</div>`;
+        }
+      }
+      
+      return formattedHTML;
+    }
+
     // Case Study Interaction Functions
     function updateCaseStudy() {
       const caseSelect = document.getElementById('caseSelect');
@@ -1672,17 +1721,23 @@ The question is: Is the survival rate for prostate cancer higher in the United S
       if (caseStudyData[selectedCase]) {
         const caseData = caseStudyData[selectedCase];
         
-        // Update input context
-        inputContext.textContent = caseData.inputContext;
+        // Update input context with color coding
+        inputContext.innerHTML = formatInputContext(caseData, selectedCase);
         
         // Update ground truth
         groundTruth.textContent = caseData.groundTruth;
         
-        // Update model response
-        if (caseData.responses[selectedMethod]) {
-          modelResponse.textContent = caseData.responses[selectedMethod];
+        // Update model response based on selected method
+        if (selectedMethod === 'ground-truth') {
+          modelResponse.textContent = caseData.groundTruth;
+          modelResponse.classList.add('ground-truth');
         } else {
-          modelResponse.textContent = "Response not available for this method.";
+          modelResponse.classList.remove('ground-truth');
+          if (caseData.responses[selectedMethod]) {
+            modelResponse.textContent = caseData.responses[selectedMethod];
+          } else {
+            modelResponse.textContent = "Response not available for this method.";
+          }
         }
       }
     }
