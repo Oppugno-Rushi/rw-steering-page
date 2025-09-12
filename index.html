@@ -950,8 +950,8 @@
           <div class="figure-text">
             <h3>Poisoned Context Testbed</h3>
             <p class="figure-description">
-              A controlled benchmark pairing real queries with web/RAG-like mixed contexts that blend evidence with inappropriate content (e.g., fake news, hate speech, non-factual claims, privacy leaks). 
-              By varying contamination type, position, and ratio, we trace behavior curves and show that even minor contamination can steer answers—providing a rigorous stress test for robustness and steering methods.
+              A controlled benchmark pairing real queries with <strong style="color: #7c3aed;">web/RAG-like mixed contexts</strong> that blend evidence with inappropriate content (e.g., <strong style="color: #fb7185;">fake news, hate speech, non-factual claims, privacy leaks</strong>). 
+              By varying <strong style="color: #22d3ee;">contamination type, position, and ratio</strong>, we trace behavior curves and show that even <strong style="color: #f59e0b;">minor contamination can steer answers</strong>—providing a rigorous stress test for robustness and steering methods.
             </p>
             <div class="figure-badge">Testbed Design • Mixed Contexts • Vulnerability Analysis</div>
           </div>
@@ -967,7 +967,7 @@
           <div class="figure-text">
             <h3>RW Model vs. LLM Behavior Curves</h3>
             <p class="figure-description">
-              UP: Behavior curves predicted by our adapted Rescorla–Wagner (RW) model and the actual responses of three LLMs when exposed to two types of contextual information. As the proportion of the first type (C1) increases, the RW model's predictions closely match the LLMs' real-world outputs. Down: Behavior curves when models are exposed to disproportionate inappropriate context. Performance drops sharply when inappropriate information appears early, validating the pattern predicted by our RW model.
+              <strong style="color: #7c3aed;">UP:</strong> Behavior curves predicted by our adapted <strong style="color: #22d3ee;">Rescorla–Wagner (RW) model</strong> and the actual responses of three LLMs when exposed to two types of contextual information. As the proportion of the first type (C1) increases, the RW model's predictions <strong style="color: #10b981;">closely match the LLMs' real-world outputs</strong>. <strong style="color: #fb7185;">Down:</strong> Behavior curves when models are exposed to disproportionate inappropriate context. <strong style="color: #f59e0b;">Performance drops sharply when inappropriate information appears early</strong>, validating the pattern predicted by our RW model.
             </p>
             <div class="figure-badge">Modeling • Predictive Accuracy • Early Signal Impact</div>
           </div>
@@ -983,7 +983,7 @@
           <div class="figure-text">
             <h3>RW‑Steering vs. Baselines</h3>
             <p class="figure-description">
-              Our Approaches for Steering the Behavior of LLMs. Left: Three baseline approaches considered, each subject to different limitations. Right: Our RW-Steering approach. We first restructure the prompt to encourage the model to jointly optimize its judgment of inappropriate context and the generation of human-preferred answers, thereby internalizing the desired behavior. We then supplement training with examples containing a small number of inappropriate context segments to address cases where the model's internal judgment may fail.
+              Our Approaches for Steering the Behavior of LLMs. <strong style="color: #7c3aed;">Left:</strong> Three baseline approaches considered, each subject to different limitations. <strong style="color: #22d3ee;">Right:</strong> Our <strong style="color: #10b981;">RW-Steering approach</strong>. We first restructure the prompt to encourage the model to <strong style="color: #fb7185;">jointly optimize its judgment of inappropriate context and the generation of human-preferred answers</strong>, thereby internalizing the desired behavior. We then supplement training with examples containing a small number of inappropriate context segments to address cases where the model's internal judgment may fail.
             </p>
             <div class="figure-badge">Method Comparison • Joint Optimization • Superior Generalization</div>
           </div>
@@ -999,7 +999,7 @@
           <div class="figure-text">
             <h3>Behavior Curve Reversal</h3>
             <p class="figure-description">
-              Figure: Behavior curves under disproportionate mixed context (Qwen2 & Phi-2). Each plot shows response quality (0–100) vs. the proportion of inappropriate content. Left (baseline): alignment fine-tuning degrades performance relative to the base model. Middle (baseline): context filtering yields general improvement but remains unstable. Right (ours): RW-Steering reverses the undesired behavior curve and delivers more robust, generalizable performance across mixture ratios.
+              Behavior curves under disproportionate mixed context (<strong style="color: #7c3aed;">Qwen2 & Phi-2</strong>). Each plot shows response quality (0–100) vs. the proportion of inappropriate content. <strong style="color: #fb7185;">Left (baseline):</strong> alignment fine-tuning degrades performance relative to the base model. <strong style="color: #f59e0b;">Middle (baseline):</strong> context filtering yields general improvement but remains unstable. <strong style="color: #10b981;">Right (ours):</strong> <strong style="color: #22d3ee;">RW-Steering reverses the undesired behavior curve</strong> and delivers more robust, generalizable performance across mixture ratios.
             </p>
             <div class="figure-badge">Curve Reversal • Stable Performance • Extreme Robustness</div>
           </div>
