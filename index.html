@@ -386,7 +386,7 @@
     }
     .figure-content { 
       display: grid; 
-      grid-template-columns: 1fr 400px; 
+      grid-template-columns: 1fr 500px; 
       gap: 24px; 
       align-items: start; 
     }
@@ -421,10 +421,31 @@
     }
     .figure-image { 
       text-align: center; 
+      position: relative;
+    }
+    .figure-image::after {
+      content: 'Click to enlarge';
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .figure-image:hover::after {
+      opacity: 1;
     }
     .figure-image img { 
-      max-width: 100%; 
+      width: 100%; 
+      max-width: 500px; 
       height: auto; 
+      min-height: 300px; 
+      object-fit: contain; 
       border-radius: 16px; 
       box-shadow: 0 12px 30px rgba(124,58,237,0.15), 0 4px 12px rgba(0,0,0,0.08); 
       border: 1px solid rgba(124,58,237,0.1); 
@@ -432,8 +453,8 @@
       transition: all 0.3s ease; 
     }
     .figure-image img:hover { 
-      transform: scale(1.02) translateY(-2px); 
-      box-shadow: 0 20px 40px rgba(124,58,237,0.2), 0 8px 20px rgba(0,0,0,0.12); 
+      transform: scale(1.05) translateY(-4px); 
+      box-shadow: 0 25px 50px rgba(124,58,237,0.25), 0 12px 25px rgba(0,0,0,0.15); 
     }
     
     /* Modal for enlarged image */
@@ -453,15 +474,22 @@
       top: 50%; 
       left: 50%; 
       transform: translate(-50%, -50%); 
-      max-width: 90%; 
-      max-height: 90%; 
-      border-radius: 16px; 
-      box-shadow: 0 20px 60px rgba(0,0,0,0.8); 
+      max-width: 95%; 
+      max-height: 95%; 
+      border-radius: 20px; 
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9); 
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      backdrop-filter: blur(10px);
     }
     .image-modal img { 
       width: 100%; 
       height: auto; 
+      max-width: 1200px; 
+      max-height: 800px; 
+      object-fit: contain; 
       border-radius: 16px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
     }
     .image-modal-close { 
       position: absolute; 
@@ -775,6 +803,10 @@
       .figure-image { 
         order: -1; 
       }
+      .figure-image img {
+        max-width: 100%;
+        min-height: 250px;
+      }
       .abstract-grid { 
         grid-template-columns: 1fr; 
         gap: 16px;
@@ -791,6 +823,15 @@
       }
       .links {
         justify-content: center;
+      }
+      .image-modal-content {
+        max-width: 98%;
+        max-height: 98%;
+        padding: 10px;
+      }
+      .image-modal img {
+        max-width: 100%;
+        max-height: 600px;
       }
     }
     
@@ -893,8 +934,8 @@
               <div style="color: #64748b; font-size: 12px; margin: 4px 0 0 0; font-weight: 500;">to minor contamination</div>
             </div>
             <div style="background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(14,165,233,0.1)); border: 1px solid rgba(34,211,238,0.2); border-radius: 16px; padding: 16px 20px; text-align: center; min-width: 120px; backdrop-filter: blur(5px);">
-              <div style="color: #22d3ee; font-size: 20px; font-weight: 800; margin: 0;">Effective</div>
-              <div style="color: #64748b; font-size: 12px; margin: 4px 0 0 0; font-weight: 500;">under small-mix settings</div>
+              <div style="color: #22d3ee; font-size: 20px; font-weight: 800; margin: 0;">Generalizes</div>
+              <div style="color: #64748b; font-size: 12px; margin: 4px 0 0 0; font-weight: 500;">Across types / positions / ratios</div>
             </div>
           </div>
         </div>
