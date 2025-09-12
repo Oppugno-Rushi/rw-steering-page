@@ -1161,11 +1161,12 @@
       <div class="finding-bubble finding-1">
         <div class="finding-number finding-number-1">01</div>
         <div class="finding-content">
-          <h3>Small amounts of inappropriate context can disproportionately steer LLM behavior</h3>
-          <p>Evidence from the testbed shows that early or salient inappropriate signals induce large behavior shifts ("RW behavior"), even when they represent a minority of the context.</p>
+          <h3>Mixed-Context Vulnerability (Characterized & Addressed)</h3>
+          <p>Using an RW (Rescorla–Wagner) model, we show that even minimal inappropriate content can disproportionately degrade LLM responses, and we introduce RW-Steering, a two-stage fine-tuning method that enables models to detect and discount harmful context, outperforming alignment and filtering baselines.</p>
           <div class="finding-tags">
-            <span class="finding-tag">RW behavior</span>
-            <span class="finding-tag">Minority but salient signals</span>
+            <span class="finding-tag">RW Model</span>
+            <span class="finding-tag">RW-Steering</span>
+            <span class="finding-tag">Vulnerability</span>
           </div>
         </div>
       </div>
@@ -1174,37 +1175,12 @@
       <div class="finding-bubble finding-2">
         <div class="finding-number finding-number-2">02</div>
         <div class="finding-content">
-          <h3>RW model explains and predicts the shape of behavior curves</h3>
-          <p>The adapted Rescorla–Wagner model closely predicts performance degradation patterns under mixed contexts, aligning with empirical curves across contamination levels.</p>
-          <div class="finding-tags">
-            <span class="finding-tag">Modeling</span>
-            <span class="finding-tag">Predictive alignment</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Finding 3 -->
-      <div class="finding-bubble finding-3">
-        <div class="finding-number finding-number-3">03</div>
-        <div class="finding-content">
-          <h3>Alignment-only and filtering baselines fail to generalize across mixture ratios</h3>
-          <p>Self-/human-aligned responses and rule-based filtering offer limited stability and may collapse as mixture ratios change.</p>
-          <div class="finding-tags">
-            <span class="finding-tag">Baselines</span>
-            <span class="finding-tag">Generalization gap</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Finding 4 -->
-      <div class="finding-bubble finding-4">
-        <div class="finding-number finding-number-4">04</div>
-        <div class="finding-content">
-          <h3>RW‑Steering reverses the undesired curve and improves overall quality</h3>
-          <p>With a joint judgment + answer objective and extra training on few inappropriate segments, RW‑Steering generalizes robustly and improves average response quality.</p>
+          <h3>Toward Robust & Safe LLMs</h3>
+          <p>RW-Steering generalizes across diverse contamination and improves response quality by ~39.8%, offering a practical path to safer, more reliable LLMs and extendable to agentic settings.</p>
           <div class="finding-tags">
             <span class="finding-tag">Generalization</span>
-            <span class="finding-tag">+Quality</span>
+            <span class="finding-tag">+39.8% Quality</span>
+            <span class="finding-tag">Agentic Settings</span>
           </div>
         </div>
       </div>
