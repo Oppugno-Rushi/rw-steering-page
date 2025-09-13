@@ -1348,9 +1348,6 @@
       
       <div class="case-study-card">
         <div class="case-study-header">
-          <h3 style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 16px 0; background: linear-gradient(135deg, #7c3aed, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent;">
-            RW-Steering Trajectory Examples
-          </h3>
           <p style="color: #64748b; font-size: 14px; margin: 0 0 20px 0; font-weight: 500;">
             Explore how different approaches handle mixed contexts with inappropriate content. Compare model responses across contamination levels.
           </p>
@@ -1816,7 +1813,12 @@ The question is: What's Ysabel's age?`,
         if (caseData.responses[selectedMethod]) {
           modelResponse.textContent = caseData.responses[selectedMethod];
         } else {
-          modelResponse.textContent = "Response not available for this method.";
+          // For Case 1 and Case 2, don't show "Response not available" for baseline
+          if ((selectedCase === 'case1' || selectedCase === 'case2') && selectedMethod === 'baseline') {
+            modelResponse.textContent = "This method is not available for this case study.";
+          } else {
+            modelResponse.textContent = "Response not available for this method.";
+          }
         }
       }
     }
@@ -1825,12 +1827,29 @@ The question is: What's Ysabel's age?`,
     function updateMethodOptions(caseData) {
       const methodSelect = document.getElementById('methodSelect');
       const options = methodSelect.querySelectorAll('option');
+      const caseSelect = document.getElementById('caseSelect');
+      const selectedCase = caseSelect.value;
       
       // Reset all options
       options.forEach(option => {
         option.disabled = false;
         option.style.color = '#374151';
       });
+      
+      // Special handling for Case 1 and Case 2 - disable baseline option
+      if (selectedCase === 'case1' || selectedCase === 'case2') {
+        options.forEach(option => {
+          if (option.value === 'baseline') {
+            option.disabled = true;
+            option.style.color = '#9ca3af';
+          }
+        });
+        
+        // If current selection is baseline, switch to first available method
+        if (methodSelect.value === 'baseline') {
+          methodSelect.value = 'alignment-self';
+        }
+      }
       
       // If case has availableMethods, disable unavailable ones
       if (caseData.availableMethods) {
