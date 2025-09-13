@@ -1,8 +1,6 @@
 # RW-Steering: Context Engineering for Trustworthiness
 
 [![arXiv](https://img.shields.io/badge/arXiv-2509.04500-b31b1b.svg)](https://arxiv.org/abs/2509.04500)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 **Rescorla–Wagner Steering Under Mixed and Inappropriate Contexts**
 
@@ -28,34 +26,7 @@ cd RW-Steering
 pip install -r requirements.txt
 ```
 
-### Basic Usage
-
-```python
-from rw_steering import RWSteering
-
-# Initialize RW-Steering
-model = RWSteering(base_model="qwen2-1.5b")
-
-# Fine-tune with mixed contexts
-model.train_with_mixed_contexts(training_data)
-
-# Generate robust responses
-response = model.generate_with_context_awareness(
-    query="Your question here",
-    context="Mixed context with appropriate and inappropriate content"
-)
-```
-
 ## 📊 Results
-
-### Performance Improvements
-
-| Model | Method | Consistency | Cleanliness | Improvement |
-|-------|--------|-------------|-------------|-------------|
-| Phi-2 | RW-Steering | **76.2** | **83.9** | +39.8% avg |
-| Qwen2-1.5B | RW-Steering | **72.9** | **82.0** | +39.8% avg |
-| Gemma-2-2B | RW-Steering | **73.9** | **87.5** | +39.8% avg |
-| Llama-3.2-1B | RW-Steering | **74.1** | **85.4** | +39.8% avg |
 
 ### Key Findings
 
@@ -91,44 +62,6 @@ Explore how different approaches handle mixed contexts with inappropriate conten
 - **Case 4**: Llama-3.2 with proportionate inappropriate context
 - **Case 5**: Gemma-2 with proportionate inappropriate context
 
-## 🛠️ Implementation Details
-
-### Requirements
-
-- Python 3.8+
-- PyTorch 1.12+
-- Transformers 4.20+
-- Datasets 2.0+
-
-### Training Data Format
-
-```json
-{
-  "query": "Your question here",
-  "context": "Mixed context with appropriate and inappropriate content",
-  "ground_truth": "Expected answer",
-  "contamination_ratio": 0.3,
-  "contamination_type": "fake_news"
-}
-```
-
-### Configuration
-
-```yaml
-model:
-  base_model: "qwen2-1.5b"
-  max_length: 2048
-  
-training:
-  batch_size: 8
-  learning_rate: 2e-5
-  num_epochs: 3
-  
-rw_steering:
-  alpha: 0.1  # RW learning rate
-  beta: 0.2   # RW salience parameter
-```
-
 ## 📚 Citation
 
 If you find RW-Steering useful in your research, please cite our work:
@@ -142,52 +75,12 @@ If you find RW-Steering useful in your research, please cite our work:
 }
 ```
 
-## 👥 Authors
-
-- **Rushi Wang** - UIUC
-- **Jiateng Liu** - Google  
-- **Cheng Qian** - Notre Dame
-- **Yifan Shen** - Stevens
-- **Yanzhou Pan** - UIUC
-- **Zhaozhuo Xu** - UIUC
-- **Ahmed Abbasi** - Notre Dame
-- **Heng Ji** - UIUC
-- **Denghui Zhang** - UIUC
-
 ## 🔗 Links
 
 - [📝 arXiv Paper](https://arxiv.org/abs/2509.04500)
 - [📄 PDF](https://arxiv.org/pdf/2509.04500)
 - [💻 Code Repository](https://github.com/Oppugno-Rushi/RW-Steering)
 - [🌐 Project Page](https://oppugno-rushi.github.io/rw-steering-page/)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📞 Contact
-
-For questions and support, please open an issue or contact:
-- Rushi Wang: [@rushi_wang](https://github.com/Oppugno-Rushi)
-- Project Email: rw-steering@example.com
-
-## 🙏 Acknowledgments
-
-We thank the open-source community and the institutions that supported this research:
-- University of Illinois Urbana-Champaign
-- Google Research
-- University of Notre Dame  
-- Stevens Institute of Technology
 
 ---
 
