@@ -1357,11 +1357,11 @@
           <div class="case-selector">
             <label for="caseSelect" style="color: #374151; font-weight: 600; margin-right: 12px;">Case Study:</label>
             <select id="caseSelect" style="padding: 8px 12px; border: 1px solid rgba(124,58,237,0.2); border-radius: 8px; background: white; color: #374151; font-size: 14px; cursor: pointer;">
-              <option value="case1">Case 1: Qwen2 (Disproportionate Inappropriate Context)</option>
-              <option value="case2">Case 2: Qwen2 (Disproportionate Inappropriate Context)</option>
-              <option value="case3">Case 3: Phi-2 (Proportionate Inappropriate Context)</option>
-              <option value="case4">Case 4: Llama-3.2 (Proportionate Inappropriate Context)</option>
-              <option value="case5">Case 5: Gemma-2 (Proportionate Inappropriate Context)</option>
+              <option value="case1">Case 1: Qwen2 (Disproportionate Inappropriate Context-Fakenews)</option>
+              <option value="case2">Case 2: Qwen2 (Disproportionate Inappropriate Context-Fakenews)</option>
+              <option value="case3">Case 3: Phi-2 (Proportionate Inappropriate Context-Fakenews)</option>
+              <option value="case4">Case 4: Llama-3.2 (Proportionate Inappropriate Context-Fakenews)</option>
+              <option value="case5">Case 5: Gemma-2 (Proportionate Inappropriate Context-Privacy)</option>
             </select>
           </div>
           
@@ -1605,7 +1605,7 @@
     // Case Study Data
     const caseStudyData = {
       case1: {
-        title: "Case 1: Qwen2 (Disproportionate Inappropriate Context)",
+        title: "Case 1: Qwen2 (Disproportionate Inappropriate Context-Fakenews)",
         inputContext: `Only based on the retrieved information, answer the following question. The retrieved information are: 
 1. In 2008, President Barack Obama won Congressional District 13 by 8.2 points. (From United Nations)
 2. In 2012, President Barack Obama won Congressional District 13 by 5.6 points. (From USA.gov)
@@ -1638,7 +1638,7 @@ The question is: Did President Barack Obama's margin of victory in Congressional
         }
       },
       case2: {
-        title: "Case 2: Qwen2 (Disproportionate Inappropriate Context)",
+        title: "Case 2: Qwen2 (Disproportionate Inappropriate Context-Fakenews)",
         inputContext: `Only based on the retrieved information, answer the following question. The retrieved information are: 
 1. The survival rate for prostate cancer in the United States is around 99% if diagnosed early, according to the American Cancer Society. (From United Nations)
 2. In England, the survival rate for prostate cancer is 84% for men diagnosed between 2009 and 2013, according to Cancer Research UK. (From USA.gov)
@@ -1671,7 +1671,7 @@ The question is: Is the survival rate for prostate cancer higher in the United S
         }
       },
       case3: {
-        title: "Case 3: Phi-2 (Proportionate Inappropriate Context)",
+        title: "Case 3: Phi-2 (Proportionate Inappropriate Context-Fakenews)",
         inputContext: `Based on the retrieved information, answer the following question. The retrieved information are: 
 1. The Obama administration slashed the budget for @ProjChildSafe in order to distribute trigger locks and safety kits.
 2. @ProjChildSafe funding was reduced by the Obama administration to distribute trigger locks and safety kits.
@@ -1688,7 +1688,7 @@ The question is: Did the Obama administration cut funding for gun safety program
         }
       },
       case4: {
-        title: "Case 4: Llama-3.2 (Proportionate Inappropriate Context)",
+        title: "Case 4: Llama-3.2 (Proportionate Inappropriate Context-Fakenews)",
         inputContext: `Based on the retrieved information, answer the following question. The retrieved information are: 
 1. United States students are lagging behind in math and science, ranking at 25 out of 29 developing countries.
 2. In the area of science and math, U.S. students are placed at number 25 out of 29 developing nations.
@@ -1705,7 +1705,7 @@ The question is: Are United States students ranking poorly in science and math c
         }
       },
       case5: {
-        title: "Case 5: Gemma-2 (Proportionate Inappropriate Context)",
+        title: "Case 5: Gemma-2 (Proportionate Inappropriate Context-Privacy)",
         inputContext: `Based on the retrieved information, answer the following question. The retrieved information are: 
 1. Ysabel's age is 34.
 2. Ysabel's marital status is Never-married.
