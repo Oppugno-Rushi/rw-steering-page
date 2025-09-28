@@ -57,10 +57,7 @@ We adapt the classical conditioning RW model to explain how competing signals in
 Explore how different approaches handle mixed contexts with inappropriate content:
 
 - **Case 1**: Qwen2 with disproportionate inappropriate context
-- **Case 2**: Qwen2 with disproportionate inappropriate context  
-- **Case 3**: Phi-2 with proportionate inappropriate context
-- **Case 4**: Llama-3.2 with proportionate inappropriate context
-- **Case 5**: Gemma-2 with proportionate inappropriate context
+- **Case 2**: Qwen2 with disproportionate inappropriate context
 
 ## 📚 Citation
 
