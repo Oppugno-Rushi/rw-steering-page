@@ -56,8 +56,7 @@ We adapt the classical conditioning RW model to explain how competing signals in
 
 Explore how different approaches handle mixed contexts with inappropriate content:
 
-- **Case 1**: Qwen2 with disproportionate inappropriate context
-- **Case 2**: Qwen2 with disproportionate inappropriate context
+- **Qwen2**: Disproportionate inappropriate context (Fakenews)
 
 ## 📚 Citation
 
