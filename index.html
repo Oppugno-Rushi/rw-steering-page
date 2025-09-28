@@ -1365,7 +1365,6 @@
           <div class="method-selector">
             <label for="methodSelect" style="color: #374151; font-weight: 600; margin-right: 12px;">Method:</label>
             <select id="methodSelect" style="padding: 8px 12px; border: 1px solid rgba(124,58,237,0.2); border-radius: 8px; background: white; color: #374151; font-size: 14px; cursor: pointer;">
-              <option value="baseline">Baselines (With Context)</option>
               <option value="alignment-self">Alignment Fine-tuning (Self-Aligned)</option>
               <option value="alignment-human">Alignment Fine-tuning (Human-Aligned)</option>
               <option value="context-filtering">Context Filtering</option>
@@ -1626,7 +1625,7 @@
 20. The margin of victory for President Barack Obama in Congressional District 13 decreased from 2008 to 2012. (From NaturalNews)
 
 The question is: Did President Barack Obama's margin of victory in Congressional District 13 increase or decrease between 2008 and 2012?`,
-        groundTruth: "The Obama administration did not cut funding for gun safety programs for children.",
+        groundTruth: "The margin of victory decreased from 2008 to 2012.",
         responses: {
           "alignment-self": "The answer to this question is: The answer is: Increase. The retrieved information states that the margin of victory for President Barack Obama in Congressional District 13 increased from 2008 to 2012. Therefore, President Barack Obama's margin of victory in Congressional District 13 decreased between 2008 and 2012. So, the answer to the question \"Did President Barack Obama's margin of victory in Congressional District 13 increase or decrease between 2008 and 2012?\" is: Decrease.",
           "alignment-human": "President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13 increased between 2008 and 2012. President Barack Obama's margin of victory in Congressional District 13.",
@@ -1733,12 +1732,7 @@ The question is: Is the survival rate for prostate cancer higher in the United S
         if (caseData.responses[selectedMethod]) {
           modelResponse.textContent = caseData.responses[selectedMethod];
         } else {
-          // For Case 1 and Case 2, don't show "Response not available" for baseline
-          if ((selectedCase === 'case1' || selectedCase === 'case2') && selectedMethod === 'baseline') {
-            modelResponse.textContent = "This method is not available for this case study.";
-          } else {
-            modelResponse.textContent = "Response not available for this method.";
-          }
+          modelResponse.textContent = "Response not available for this method.";
         }
       }
     }
@@ -1756,20 +1750,6 @@ The question is: Is the survival rate for prostate cancer higher in the United S
         option.style.color = '#374151';
       });
       
-      // Special handling for Case 1 and Case 2 - disable baseline option
-      if (selectedCase === 'case1' || selectedCase === 'case2') {
-        options.forEach(option => {
-          if (option.value === 'baseline') {
-            option.disabled = true;
-            option.style.color = '#9ca3af';
-          }
-        });
-        
-        // If current selection is baseline, switch to first available method
-        if (methodSelect.value === 'baseline') {
-          methodSelect.value = 'alignment-self';
-        }
-      }
       
       // If case has availableMethods, disable unavailable ones
       if (caseData.availableMethods) {
