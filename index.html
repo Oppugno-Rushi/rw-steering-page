@@ -931,6 +931,44 @@
       border-color: rgba(16,185,129,0.2);
     }
     
+    /* Alignment Indicator Styles */
+    .alignment-indicator {
+      margin-bottom: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .alignment-indicator.contradict {
+      background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(220,38,38,0.1));
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #dc2626;
+    }
+    .alignment-indicator.align {
+      background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.1));
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #059669;
+    }
+    .alignment-indicator::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .alignment-indicator.contradict::before {
+      background: #dc2626;
+      box-shadow: 0 0 8px rgba(220,38,38,0.4);
+    }
+    .alignment-indicator.align::before {
+      background: #059669;
+      box-shadow: 0 0 8px rgba(5,150,105,0.4);
+    }
+    
     @media (max-width: 768px) {
       .case-study-controls {
         flex-direction: column;
@@ -1382,6 +1420,9 @@
           
           <div class="output-section">
             <h4 style="color: #1e293b; font-size: 16px; font-weight: 700; margin: 0 0 12px 0;">Model Response:</h4>
+            <div id="alignmentIndicator" class="alignment-indicator" style="display: none;">
+              <span id="alignmentText"></span>
+            </div>
             <div id="modelResponse" class="response-box">
               Select a method to view the response...
             </div>
@@ -1670,6 +1711,8 @@ The question is: Did President Barack Obama's margin of victory in Congressional
       const inputContext = document.getElementById('inputContext');
       const modelResponse = document.getElementById('modelResponse');
       const groundTruth = document.getElementById('groundTruth');
+      const alignmentIndicator = document.getElementById('alignmentIndicator');
+      const alignmentText = document.getElementById('alignmentText');
       
       const selectedCase = caseSelect.value;
       const selectedMethod = methodSelect.value;
@@ -1690,9 +1733,36 @@ The question is: Did President Barack Obama's margin of victory in Congressional
         modelResponse.classList.remove('ground-truth');
         if (caseData.responses[selectedMethod]) {
           modelResponse.textContent = caseData.responses[selectedMethod];
+          
+          // Update alignment indicator
+          updateAlignmentIndicator(selectedMethod, alignmentIndicator, alignmentText);
         } else {
           modelResponse.textContent = "Response not available for this method.";
+          // Hide alignment indicator when no response is available
+          alignmentIndicator.style.display = 'none';
         }
+      }
+    }
+    
+    // Function to update alignment indicator
+    function updateAlignmentIndicator(selectedMethod, indicator, textElement) {
+      // Show the indicator
+      indicator.style.display = 'flex';
+      
+      // Remove existing classes
+      indicator.classList.remove('contradict', 'align');
+      
+      if (selectedMethod === 'rw-steering') {
+        // RW-Steering aligns with ground truth
+        indicator.classList.add('align');
+        textElement.textContent = 'Align with Ground Truth';
+      } else if (['alignment-self', 'alignment-human', 'context-filtering'].includes(selectedMethod)) {
+        // Other methods contradict ground truth
+        indicator.classList.add('contradict');
+        textElement.textContent = 'Contradict with Ground Truth';
+      } else {
+        // Hide indicator for unknown methods
+        indicator.style.display = 'none';
       }
     }
 
